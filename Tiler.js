@@ -7,7 +7,7 @@ var zoomed = 80;
 // Map and tile settings
 var mapCode = Array.from({ length: 33 }, () => new Array(21).fill('.'));
 window.mapCode = mapCode;
-var path = '/Resources/Desert';
+var path = './Resources/Desert';
 var tileSelected = '.';
 const mirroring = [false, false, false];
 
@@ -765,7 +765,7 @@ function markSelected(row, col, unmark = false) {
     else {
         tile.style.opacity = '0';
         tile.style.backgroundColor = '#00000000';
-        tile.src = '/Resources/Transparent.png';
+        tile.src = './Resources/Transparent.png?v=1';
         tile.style.transform = 'translate(0, 0)';
     }
 }
@@ -893,7 +893,7 @@ function generateMap(s = size) {
             back.style.width = tileWidthPercent + '%';
             back.style.height = tileHeightPercent + '%';
             back.alt = '';
-            back.src = ((row * columns + col) % 2 === 1 && columns % 2 === 1 || (row + col) % 2 === 0 && columns % 2 === 0) ? path + '/BGLight.png' : path + '/BGDark.png';
+            back.src = ((row * columns + col) % 2 === 1 && columns % 2 === 1 || (row + col) % 2 === 0 && columns % 2 === 0) ? path + '/BGLight.png?v=1' : path + '/BGDark.png?v=1';
             back.style.left = leftPosition + '%';
             back.style.top = topPosition + '%';
             back.style.zIndex = '6';
@@ -907,7 +907,7 @@ function generateMap(s = size) {
             upper.style.width = tileWidthPercent + '%';
             upper.style.height = tileHeightPercent + '%';
             upper.alt = '';
-            upper.src = '/Resources/Transparent.png';
+            upper.src = './Resources/Transparent.png?v=1';
             upper.style.border = 'none';
             upper.style.left = leftPosition + '%';
             upper.style.top = topPosition + '%';
@@ -931,123 +931,123 @@ function getImage(tile = tileSelected, blue = true) {
             image = "";
             break;
         case 'M':
-            image = path + '/Tiles/Wall.png';
+            image = path + '/Tiles/Wall.png?v=1';
             break;
         case 'X':
-            image = path + '/Tiles/Wall2.png';
+            image = path + '/Tiles/Wall2.png?v=1';
             break;
         case 'Y':
-            image = path + '/Tiles/Crate.png';
+            image = path + '/Tiles/Crate.png?v=1';
             break;
         case 'C':
-            image = path + '/Tiles/Barrel.png';
+            image = path + '/Tiles/Barrel.png?v=1';
             break;
         case 'F':
-            image = path + '/Tiles/Bush.png';
+            image = path + '/Tiles/Bush.png?v=1';
             break;
         case 'T':
-            image = path + '/Tiles/Cactus.png';
+            image = path + '/Tiles/Cactus.png?v=1';
             break;
         case 'B':
-            image = path + '/Tiles/Skull.png';
+            image = path + '/Tiles/Skull.png?v=1';
             break;
         case 'N':
-            if (regularFenceEnvs.indexOf(theme) !== -1 || almostRegularFenceEnvs.indexOf(theme) !== -1) image = path + '/Fence/Fence.png';
-            else if (chainFenceEnvs.indexOf(theme) !== -1) image = path + '/Fence/0110.png';
+            if (regularFenceEnvs.indexOf(theme) !== -1 || almostRegularFenceEnvs.indexOf(theme) !== -1) image = path + '/Fence/Fence.png?v=1';
+            else if (chainFenceEnvs.indexOf(theme) !== -1) image = path + '/Fence/0110.png?v=1';
             break;
         case 'W':
-            image = path + '/Water/00000000.png';
+            image = path + '/Water/00000000.png?v=1';
             break;
         case '1':
-            if (gamemode !== 'Showdown') image = '/Resources/Global/Spawns/3V3/1.png';
-            else image = '/Resources/Global/Spawns/Sd/1.png';
+            if (gamemode !== 'Showdown') image = './Resources/Global/Spawns/3V3/1.png?v=1';
+            else image = './Resources/Global/Spawns/Sd/1.png?v=1';
             break;
         case '2':
-            if (gamemode !== 'Showdown') image = '/Resources/Global/Spawns/3V3/2.png';
-            else image = '/Resources/Global/Spawns/Sd/2.png';
+            if (gamemode !== 'Showdown') image = './Resources/Global/Spawns/3V3/2.png?v=1';
+            else image = './Resources/Global/Spawns/Sd/2.png?v=1';
             break;
         case '8':
             if (gamemode === 'Siege') {
-                if (blue) image = '/Resources/Global/Objectives/IkeBlue.png';
-                else image = '/Resources/Global/Objectives/IkeRed.png';
+                if (blue) image = './Resources/Global/Objectives/IkeBlue.png?v=1';
+                else image = './Resources/Global/Objectives/IkeRed.png?v=1';
                 break;
             }
             if (gamemode === 'Snowtel Thieves') {
-                if (blue) image = '/Resources/Global/Objectives/SnowtelThievesBlue.png';
-                else image = '/Resources/Global/Objectives/SnowtelThievesRed.png';
+                if (blue) image = './Resources/Global/Objectives/SnowtelThievesBlue.png?v=1';
+                else image = './Resources/Global/Objectives/SnowtelThievesRed.png?v=1';
                 break;
             }
             else if (gamemode !== 'Gem Grab' && gamemode !== 'Brawl Ball' && gamemode !== 'Heist' && gamemode !== 'Showdown') {
-                image = '/Resources/Global/Objectives/' + gamemode.replace(' ', '_') + '.png';
+                image = './Resources/Global/Objectives/' + gamemode.replace(' ', '_') + '.png?v=1';
                 break;
             }
             else if (gamemode !== 'Showdown') {
-                image = path + '/Gamemode_Specifics/' + gamemode.replace(' ', '_') + '.png';
+                image = path + '/Gamemode_Specifics/' + gamemode.replace(' ', '_') + '.png?v=1';
                 break;
             }
         case '4':
-            image = '/Resources/Global/Objectives/Box.png';
+            image = './Resources/Global/Objectives/Box.png?v=1';
             break;
         case 'g':
-            image = '/Resources/Global/Objectives/Bolt.png';
+            image = './Resources/Global/Objectives/Bolt.png?v=1';
             break;
         case 'H':
-            image = '/Resources/Global/Jps/JumppadRight.png';
+            image = './Resources/Global/Jps/JumppadRight.png?v=1';
             break;
         case 'G':
-            image = '/Resources/Global/Jps/JumppadLeft.png';
+            image = './Resources/Global/Jps/JumppadLeft.png?v=1';
             break;
         case 'L':
-            image = '/Resources/Global/Jps/JumppadBottom.png';
+            image = './Resources/Global/Jps/JumppadBottom.png?v=1';
             break;
         case 'K':
-            image = '/Resources/Global/Jps/JumppadTop.png';
+            image = './Resources/Global/Jps/JumppadTop.png?v=1';
             break;
         case 'P':
-            image = '/Resources/Global/Jps/JumppadBottomRight.png';
+            image = './Resources/Global/Jps/JumppadBottomRight.png?v=1';
             break;
         case 'Z':
-            image = '/Resources/Global/Jps/JumppadTopLeft.png';
+            image = './Resources/Global/Jps/JumppadTopLeft.png?v=1';
             break;
         case 'O':
-            image = '/Resources/Global/Jps/JumppadBottomLeft.png';
+            image = './Resources/Global/Jps/JumppadBottomLeft.png?v=1';
             break;
         case 'U':
-            image = '/Resources/Global/Jps/JumppadTopRight.png';
+            image = './Resources/Global/Jps/JumppadTopRight.png?v=1';
             break;
         case 'c':
-            image = '/Resources/Global/Tps/BlueTeleporter.png';
+            image = './Resources/Global/Tps/BlueTeleporter.png?v=1';
             break;
         case 'd':
-            image = '/Resources/Global/Tps/GreenTeleporter.png';
+            image = './Resources/Global/Tps/GreenTeleporter.png?v=1';
             break;
         case 'e':
-            image = '/Resources/Global/Tps/RedTeleporter.png';
+            image = './Resources/Global/Tps/RedTeleporter.png?v=1';
             break;
         case 'f':
-            image = '/Resources/Global/Tps/YellowTeleporter.png';
+            image = './Resources/Global/Tps/YellowTeleporter.png?v=1';
             break;
         case 'a':
             //Rope Fence
-            image = path + '/Rope/Rope.png';
+            image = path + '/Rope/Rope.png?v=1';
             break;
         case 'v':
-            image = '/Resources/Global/Special_Tiles/Spikes.png';
+            image = './Resources/Global/Special_Tiles/Spikes.png?v=1';
             break;
         case 'x':
-            image = '/Resources/Global/Special_Tiles/Smoke.png';
+            image = './Resources/Global/Special_Tiles/Smoke.png?v=1';
             break;
         case 'y':
-            image = '/Resources/Global/Special_Tiles/HealPad.png';
+            image = './Resources/Global/Special_Tiles/HealPad.png?v=1';
             break;
         case 'z':
-            image = '/Resources/Global/Special_Tiles/SlowTile.png';
+            image = './Resources/Global/Special_Tiles/SlowTile.png?v=1';
             break;
         case 'w':
-            image = '/Resources/Global/Special_Tiles/SpeedTile.png';
+            image = './Resources/Global/Special_Tiles/SpeedTile.png?v=1';
             break;
         case 'I':
-            image = '/Resources/Global/Unbreakable.png';
+            image = './Resources/Global/Unbreakable.png?v=1';
             break;
     }
     return image;
@@ -1070,13 +1070,13 @@ function selectGamemode(mode) {
     if (gamemode === 'Showdown') {
         document.getElementById('specialTile').src = getImage('4');
         document.getElementById('specialTile').value ='4';
-        document.getElementById('spawn1').src = '/Resources/Global/Spawns/Sd/1.png';
-        document.getElementById('spawn2').src = '/Resources/Global/Spawns/Sd/2.png';
+        document.getElementById('spawn1').src = './Resources/Global/Spawns/Sd/1.png?v=1';
+        document.getElementById('spawn2').src = './Resources/Global/Spawns/Sd/2.png?v=1';
     }
 
     else {
-        document.getElementById('spawn1').src = '/Resources/Global/Spawns/3V3/1.png';
-        document.getElementById('spawn2').src = '/Resources/Global/Spawns/3V3/2.png';
+        document.getElementById('spawn1').src = './Resources/Global/Spawns/3V3/1.png?v=1';
+        document.getElementById('spawn2').src = './Resources/Global/Spawns/3V3/2.png?v=1';
     }
 
     if (gamemode !== 'Wipeout' && gamemode !== 'Knockout' && gamemode !== 'Duels' && gamemode !== 'Showdown' && gamemode !== 'Siege') {
@@ -1180,7 +1180,7 @@ function count(char) {
 }
 
 function selectTheme(theme) {
-    path = '/Resources/' + theme;
+    path = './Resources/' + theme;
 
     document.getElementById('M').src = getImage('M');
     document.getElementById('X').src = getImage('X');
@@ -1209,7 +1209,7 @@ function selectTheme(theme) {
             back.style.width = tileWidthPercent + '%';
             back.style.height = tileHeightPercent + '%';
             back.alt = '';
-            back.src = ((row * columns + col) % 2 === 1 && columns % 2 === 1 || (row + col) % 2 === 0 && columns % 2 === 0) ? path + '/BGLight.png' : path + '/BGDark.png';
+            back.src = ((row * columns + col) % 2 === 1 && columns % 2 === 1 || (row + col) % 2 === 0 && columns % 2 === 0) ? path + '/BGLight.png?v=1' : path + '/BGDark.png?v=1';
             back.style.left = leftPosition + '%';
             back.style.top = topPosition + '%';
             back.style.zIndex = 5;
@@ -1237,7 +1237,7 @@ function setMirror(mirror) {
     icon += mirroring[0] ? 1 : 0;
     icon += mirroring[2] ? 1 : 0;
 
-    document.getElementById('mirrorIcon').src = '/Resources/Additional/Icons/' + icon + '.png';
+    document.getElementById('mirrorIcon').src = './Resources/Additional/Icons/' + icon + '.png?v=1';
 
     let c = 0;
     let text = 'None';
@@ -1350,7 +1350,7 @@ function showJpsLanding() {
                     if (y >= columns) y = columns - 2;
                     if (y < 0) y = 0;
                     let mark = mapCode[x][y].upper;
-                    mark.src = '/Resources/Global/JpsLandingMark.png';
+                    mark.src = './Resources/Global/JpsLandingMark.png?v=1';
                     mark.style.width = `${tileWidthPercent * 2}%`;
                     mark.style.height = 'auto';
                     mark.style.opacity = '0.65';
@@ -1364,7 +1364,7 @@ function showJpsLanding() {
                     if (y >= columns) y = columns - 2;
                     if (y < 0) y = 0;
                     let mark = mapCode[x][y].upper;
-                    mark.src = '/Resources/Global/JpsLandingMark.png';
+                    mark.src = './Resources/Global/JpsLandingMark.png?v=1';
                     mark.style.width = `${tileWidthPercent * 2}%`;
                     mark.style.height = 'auto';
                     mark.style.opacity = '0.65';
@@ -1389,7 +1389,7 @@ function makeQuarterGone(row, col, gone) {
             }
         }
     } else {
-        mapCode[row][col].upper.src = '/Resources/Transparent.png';
+        mapCode[row][col].upper.src = './Resources/Transparent.png?v=1';
         mapCode[row][col].upper.style.opacity = '0';
         mapCode[row][col].upper.style.zIndex = '20';
         for (let i = row; i < row + 4; i++) {
@@ -1488,7 +1488,7 @@ function placeTile(row, col, tile = tileSelected, d = mirroring[0], v = mirrorin
 			get2x2(a[0], a[1], -1).forEach(b => {
 				if (b[0] !== a[0] || b[1] !== a[1]) if (fourChars.includes(mapCode[b[0]][b[1]].char) || jumpChars.includes(mapCode[b[0]][b[1]].char)) {
 					let x = upper ? mapCode[b[0]][b[1]].upper : mapCode[b[0]][b[1]].image;
-					x.src = '/Resources/Transparent.png';
+					x.src = './Resources/Transparent.png?v=1';
 					if (!upper) mapCode[b[0]][b[1]].char = '.';
 					x.opacity = '0';
 				}
@@ -1502,7 +1502,7 @@ function placeTile(row, col, tile = tileSelected, d = mirroring[0], v = mirrorin
 		let affectedSpot = upper ? spot.upper : spot.image;
 		
 		if (e || tile === '.'){
-			affectedSpot.src = '/Resources/Transparent.png';
+			affectedSpot.src = './Resources/Transparent.png?v=1';
 			if (!upper) spot.char = '.';
 			affectedSpot.opacity = '0';
 		}
@@ -1620,7 +1620,7 @@ function place2x2(row, col, tile = tileSelected, d = mirroring[0], v = mirroring
                         stop = true; return;
                     }
                     let x = upper ? mapCode[d[0]][d[1]].upper : mapCode[d[0]][d[1]].image;
-                    x.src = '/Resources/Transparent.png';
+                    x.src = './Resources/Transparent.png?v=1';
                     if (!upper) mapCode[d[0]][d[1]].char = '.';
                     x.opacity = '0';
                 }
@@ -1630,7 +1630,7 @@ function place2x2(row, col, tile = tileSelected, d = mirroring[0], v = mirroring
         let spot = mapCode[a[0]][a[1]];
         let x = upper ? spot.upper : spot.image;
         if (e) {
-            x.src = '/Resources/Transparent.png';
+            x.src = './Resources/Transparent.png?v=1';
             if (!upper) spot.char = '.';
             x.style.opacity = '0';
         }
@@ -1640,7 +1640,7 @@ function place2x2(row, col, tile = tileSelected, d = mirroring[0], v = mirroring
                     stop = true; return;
                 }
                 let y = upper ? mapCode[t[0]][t[1]].upper : mapCode[t[0]][t[1]].image;
-                y.src = '/Resources/Transparent.png';
+                y.src = './Resources/Transparent.png?v=1';
                 if (!upper) mapCode[t[0]][t[1]].char = '.';
                 y.opacity = '0';
             });
@@ -1835,26 +1835,26 @@ function arrangeFences(row, col) {
                 let r = fence[0], c = fence[1];
                 let spot = mapCode[r][c];
 
-                let image = path + '/Fence/Fence.png';
+                let image = path + '/Fence/Fence.png?v=1';
                 spot.image.style.transform = 'translate(0, -30%)';
 
                 if (fences.some(f => f[0] === r && f[1] === c - 1) && fences.some(f => f[0] === r && f[1] === c + 1)) {
-                    image = path + '/Fence/FenceSide.png';
+                    image = path + '/Fence/FenceSide.png?v=1';
                     spot.image.style.transform = 'translate(0, -5%)';
                     if (almostRegularFenceEnvs.indexOf(theme) !== -1) { spot.image.style.transform = 'translate(0, -20%)'; }
                     else if (theme === 10) { spot.image.style.transform = 'translate(0, -30%)'; }
 
                     if (fences.some(f => f[0] === r + 1 && f[1] === c) || fences.some(f => f[0] === r - 1 && f[1] === c)) {
-                        image = path + '/Fence/Fence.png';
+                        image = path + '/Fence/Fence.png?v=1';
                         spot.image.style.transform = 'translate(0, -30%)';
                     }
 
                 } else if (fences.some(f => f[0] === r + 1 && f[1] === c) && fences.some(f => f[0] === r - 1 && f[1] === c)) {
                     spot.image.style.transform = 'translate(0, -30%)';
-                    image = path + '/Fence/FenceUp.png';
+                    image = path + '/Fence/FenceUp.png?v=1';
 
                     if (fences.some(f => f[0] === r && f[1] === c + 1) || fences.some(f => f[0] === r && f[1] === c - 1)) {
-                        image = path + '/Fence/Fence.png';
+                        image = path + '/Fence/Fence.png?v=1';
                         spot.image.style.transform = 'translate(0, -30%)';
                     }
                 }
@@ -1873,16 +1873,16 @@ function arrangeFences(row, col) {
 
                 if (fences.some(f => f[0] === r && f[1] === c - 1)) code[1] = 1;
                 if (fences.some(f => f[0] === r && f[1] === c + 1)) code[2] = 1;
-                if (code.filter(num => num === 1).length === 2) { spot.image.src = path + '/Fence/' + code.join('') + '.png'; spot.image.style.transform = 'translate(0, -30%)'; return; }
+                if (code.filter(num => num === 1).length === 2) { spot.image.src = path + '/Fence/' + code.join('') + '.png?v=1'; spot.image.style.transform = 'translate(0, -30%)'; return; }
                 if (fences.some(f => f[0] === r - 1 && f[1] === c)) code[0] = 1;
                 if (fences.some(f => f[0] === r + 1 && f[1] === c)) code[3] = 1;
                 if (code.filter(num => num === 1).length === 2 || code.filter(num => num === 1).length === 1) {
-                    spot.image.src = path + '/Fence/' + code.join('') + '.png';
+                    spot.image.src = path + '/Fence/' + code.join('') + '.png?v=1';
                     spot.image.style.transform = 'translate(0, -30%)';
                     if ((code[0] === 0 || code[3] === 0) && code.filter(num => num === 1).length !== 1) { spot.image.style.transform = 'translate(0, -45%)'; }
                 }
-                else if (code.filter(num => num === 1).length === 0) { spot.image.src = path + '/Fence/0110.png'; }
-                else { spot.image.src = path + '/Fence/1001.png'; spot.image.style.transform = 'translate(0, -30%)'; }
+                else if (code.filter(num => num === 1).length === 0) { spot.image.src = path + '/Fence/0110.png?v=1'; }
+                else { spot.image.src = path + '/Fence/1001.png?v=1'; spot.image.style.transform = 'translate(0, -30%)'; }
             });
             break;
     }
@@ -1918,7 +1918,7 @@ function arrangeWaters(row, col) {
         if (waters.some(w => w[0] === r + 1 && w[1] === c - 1) && (code[3] === '1' || left) && (code[6] === '1' || bottom) || (code[6] === '1' || bottom) && left || bottom && (code[3] === '1' || left)) code[5] = '1'; // bottom left
         if (waters.some(w => w[0] === r + 1 && w[1] === c + 1) && (code[4] === '1' || right) && (code[6] === '1' || bottom) || (code[6] === '1' || bottom) && right || bottom && (code[4] === '1' || right)) code[7] = '1'; // bottom right
 
-        mapCode[r][c].image.src = path + '/Water/' + code.join('') + '.png';
+        mapCode[r][c].image.src = path + '/Water/' + code.join('') + '.png?v=1';
     });
 }
 
@@ -1944,20 +1944,20 @@ function arrangeRopes(row, col) {
 
         if (toRight) {
             if (toTop) {
-                spot.src = path + '/Rope/RopeBoth.png';
+                spot.src = path + '/Rope/RopeBoth.png?v=1';
                 spot.style.width = `${(tileWidthPercent * 1.485).toFixed(3)}%`;
                 spot.style.transform = 'translate(0%, -55%)';
                 return;
             }
-            spot.src = path + '/Rope/RopeSide.png';
+            spot.src = path + '/Rope/RopeSide.png?v=1';
             spot.style.width = `${(tileWidthPercent * 1.485).toFixed(3)}%`;
             spot.style.transform = 'translate(0%, -35%)';
         } else if (toTop) {
-            spot.src = path + '/Rope/RopeUp.png';
+            spot.src = path + '/Rope/RopeUp.png?v=1';
             spot.style.width = `${tileWidthPercent}%`;
             spot.style.transform = 'translate(0%, -55%)';
         } else {
-            spot.src = path + '/Rope/Rope.png';
+            spot.src = path + '/Rope/Rope.png?v=1';
             spot.style.width = `${tileWidthPercent}%`;
             spot.style.transform = 'translate(0%, -35%)';
         }
