@@ -930,10 +930,6 @@ function getImage(tile = tileSelected, blue = true) {
         case '.':
             image = "";
             break;
-        case '%':
-            if (gamemode === 'Showdown') image = path + '/SdBackground.png';
-            else image = path + '/Background.png';
-            break;
         case 'M':
             image = path + '/Tiles/Wall.png';
             break;
@@ -982,11 +978,11 @@ function getImage(tile = tileSelected, blue = true) {
                 break;
             }
             else if (gamemode !== 'Gem Grab' && gamemode !== 'Brawl Ball' && gamemode !== 'Heist' && gamemode !== 'Showdown') {
-                image = '/Resources/Global/Objectives/' + gamemode + '.png';
+                image = '/Resources/Global/Objectives/' + gamemode.replace(' ', '_') + '.png';
                 break;
             }
             else if (gamemode !== 'Showdown') {
-                image = path + '/Gamemode_Specifics/' + gamemode.toString() + '.png';
+                image = path + '/Gamemode_Specifics/' + gamemode.replace(' ', '_') + '.png';
                 break;
             }
         case '4':
