@@ -978,11 +978,11 @@ function getImage(tile = tileSelected, blue = true) {
                 break;
             }
             else if (gamemode !== 'Gem Grab' && gamemode !== 'Brawl Ball' && gamemode !== 'Heist' && gamemode !== 'Showdown') {
-                image = './Resources/Global/Objectives/' + gamemode.replace(' ', '_') + '.png?v=1';
+                image = './Resources/Global/Objectives/' + gamemode.replace(/ /g, '_') + '.png?v=1';
                 break;
             }
             else if (gamemode !== 'Showdown') {
-                image = path + '/Gamemode_Specifics/' + gamemode.replace(' ', '_') + '.png?v=1';
+                image = path + '/Gamemode_Specifics/' + gamemode.replace(/ /g, '_') + '.png?v=1';
                 break;
             }
         case '4':
@@ -1180,7 +1180,7 @@ function count(char) {
 }
 
 function selectTheme(theme) {
-    path = './Resources/' + theme.replace(' ', '_');
+    path = './Resources/' + theme.replace(/ /g, '_');
 
     document.getElementById('M').src = getImage('M');
     document.getElementById('X').src = getImage('X');
