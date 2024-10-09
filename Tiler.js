@@ -1180,7 +1180,7 @@ function count(char) {
 }
 
 function selectTheme(theme) {
-    path = './Resources/' + theme;
+    path = './Resources/' + theme.replace(' ', '_');
 
     document.getElementById('M').src = getImage('M');
     document.getElementById('X').src = getImage('X');
