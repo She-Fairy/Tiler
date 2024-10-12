@@ -39,6 +39,7 @@ var eraser = false;
 var replacer = false;
 var errorer = false;
 var select = 1;
+var mirroringBlocked = false;
 var rightclicking = false;
 var areaSelecting = false;
 var dragging = false;
@@ -224,6 +225,9 @@ document.addEventListener('keydown', function (e) {
                     break;
                 case 'q':
                     document.getElementById('errorer').click();
+                    break;
+                case 'm':
+                    mirroringBlocked = !mirroringBlocked;
                     break;
             }
         }
@@ -1478,9 +1482,11 @@ function placeTile(row, col, tile = tileSelected, d = mirroring[0], v = mirrorin
 	
 	//Mirroring
 	let tiles = [[row, col]];
-	if (d) tiles.push([rows - 1 - row, columns - 1 - col]);
-	if (v) tiles.push([rows - 1 - row, col]);
-	if (h) tiles.push([row, columns - 1 - col]);
+    if (!mirroringBlocked) {
+        if (d) tiles.push([rows - 1 - row, columns - 1 - col]);
+        if (v) tiles.push([rows - 1 - row, col]);
+        if (h) tiles.push([row, columns - 1 - col]);
+    }
 	
 	//2x2 Proof Checking
 	if (tile !== '.') {
@@ -1607,9 +1613,12 @@ function place2x2(row, col, tile = tileSelected, d = mirroring[0], v = mirroring
     let tiles = [[row, col]];
 
     let image = getImage(tile);
-    if (d) tiles.push([rows - 2 - row, columns - 2 - col]);
-    if (v) tiles.push([rows - 2 - row, col]);
-    if (h) tiles.push([row, columns - 2 - col]);
+
+    if (!mirroringBlocked) {
+        if (d) tiles.push([rows - 2 - row, columns - 2 - col]);
+        if (v) tiles.push([rows - 2 - row, col]);
+        if (h) tiles.push([row, columns - 2 - col]);
+    }
 
     tiles.forEach(function (a) {
         let stop = false;
