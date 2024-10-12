@@ -228,7 +228,7 @@ document.addEventListener('keydown', function (e) {
                     break;
                 case 'm':
                     mirroringBlocked = !mirroringBlocked;
-                    document.getElementById('mirrorDisplay').style.color = mirroringBlocked ? '#FF4422' : '#F7F7F7';
+                    document.getElementById('mirrorDisplay').style.color = mirroringBlocked ? '#FF4422' : '#239FF9';
                     break;
             }
         }
