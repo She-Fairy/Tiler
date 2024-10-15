@@ -1551,9 +1551,9 @@ function placeSpecial(tiles, upper) {
 
         switch (gamemode) {
             case 'Snowtel Thieves':
-                imageDisplay.style.width = `${(tileWidthPercent * 7).toFixed(3)}%`;
-                imageDisplay.style.transform = 'translate(-42%, -42%)';
-                imageDisplay.style.opacity = '0.6';
+                imageDisplay.style.width = `${(tileWidthPercent * 9).toFixed(3)}%`;
+                imageDisplay.style.transform = 'translate(-44%, -44%)';
+                imageDisplay.style.opacity = '0.5';
                 if (!upper) imageDisplay.style.zIndex = '9';
                 break;
             case 'Hot Zone':
