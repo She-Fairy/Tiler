@@ -230,6 +230,10 @@ document.addEventListener('keydown', function (e) {
                     mirroringBlocked = !mirroringBlocked;
                     document.getElementById('mirrorDisplay').style.color = mirroringBlocked ? '#FF4422' : '#239FF9';
                     break;
+                case 'Backspace':
+                    document.getElementById('codeDisplay').style.display = 'none';
+                    document.getElementById('imageButton').checked = false;
+                    break;
             }
         }
     }
@@ -1974,9 +1978,9 @@ function arrangeRopes(row, col) {
     });
 }
 
-function getCode(element) {
+function getCode() {
     if (gamemode === 'Brawl Ball') allQuarters(true, true);
-    if (element.checked) {
+    if (document.getElementById('imageButton').checked) {
         let text = '';
         mapCode.forEach(row => {
             text += '"';
@@ -1985,6 +1989,7 @@ function getCode(element) {
             });
             text += '",\n';
         });
+        text = text.substring(0, text.length - 2);
         document.getElementById('codeDisplay').innerText = text;
         document.getElementById('codeDisplay').style.display = 'block';
     }
