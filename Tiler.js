@@ -52,6 +52,7 @@ var pasting = false;
 var placing = false;
 var cleaned = false;
 var erased = false;
+var sent = false;
 
 // Action tracking
 var actionsStack = [];
@@ -80,6 +81,7 @@ var rows, columns, tileWidthPercent, tileHeightPercent;
 
 
 const tileSizes = {
+    ".": [0, 0, 0, 0],               //Empty
     "M": [1, 1.75, 0, -30],          //Wall
     "X": [1, 1.75, 0, -30],          //Secondary Wall
     "Y": [1, 1.8, 0, -30],           //Crate
@@ -114,7 +116,8 @@ const tileSizes = {
     "b": [1, 1, 0, 0],               //Payload Track
     "g": [1, 1.18, 0, 0],            //Siege Bolt
     "4": [1, 1.75, 0, -30],          //Showdown Box
-    "o": [1, 1.67, 0, -30]           //Brawl Ball Bumpers
+    "o": [1, 1.67, 0, -30],          //Brawl Ball Bumpers
+    "J": [0, 0, 0, 0]                //Brawl Ball Empty Corner Tile
 }
 
 
@@ -598,7 +601,7 @@ function buttonListening(row, col) {
                 lastTile = [row, col];
                 initialChar = spot.char;
                 lastChar = '.';
-                placeTile(row, col, initialChar, undefined, undefined, undefined, true);
+                placeTile(row, col, undefined, undefined, undefined, undefined, true);
                 placeTile(row, col, initialChar, undefined, undefined, undefined, undefined, true);
             }
 
@@ -795,17 +798,18 @@ function getTilesInRectangle(startTile, endTile) {
     return tilesInRectangle;
 }
 
-function replaceTiles() {
-    for (let i = 0; i < mapCode.length; i++) {
-        for (let j = 0; j < mapCode[0].length; j++) {
-            if (mapCode[i][j].char === replaceFrom) {
-                mapCode[i][j].char = replaceTo;
+function replaceTiles(from = replaceFrom, to = replaceTo) {
+    if (count(from) > 0) {
+        for (let i = 0; i < mapCode.length; i++) {
+            for (let j = 0; j < mapCode[0].length; j++) {
+                if (mapCode[i][j].char === from) {
+                    mapCode[i][j].char = to;
+                }
             }
         }
+
+        makeMapFromCode();
     }
-
-    makeMapFromCode();
-
     document.getElementById('replacer').checked = false;
 }
 
@@ -1063,120 +1067,138 @@ function getImage(tile = tileSelected, blue = true) {
 }
 
 function selectGamemode(mode) {
-    if (gamemode === 'Brawl Ball') allQuarters(false);
-    document.getElementById('specialTile').value = '8';
-    replaceFrom = '4';
-    replaceTo = '8';
-    replaceTiles();
+    setInitialGamemodeSettings(mode);
+    updateSpecialTile();
+    updateSpawnIcons();
+    handleSpecificGamemodeSettings();
+    placeSpecialTiles();
+    setupSpawns();
+    updateDisplayElements();
 
+    makeMapFromCode();
+}
+
+// Helper function to set the initial settings based on gamemode
+function setInitialGamemodeSettings(mode) {
+    if (gamemode === 'Brawl Ball') allQuarters(true);
+    document.getElementById('specialTile').value = '8';
+    replaceTiles('4', '8');
     gamemode = mode;
     if (gamemode === 'Brawl Ball' && size === '21×33 (Regular)') {
-        allQuarters(true);
+        allQuarters(false);
     }
+}
 
+// Helper function to update the display of the special tile
+function updateSpecialTile() {
     document.getElementById('specialTile').style.display = 'inline-block';
 
     if (gamemode === 'Showdown') {
         document.getElementById('specialTile').src = getImage('4');
-        document.getElementById('specialTile').value ='4';
-        document.getElementById('spawn1').src = './Resources/Global/Spawns/Sd/1.png?v=1';
-        document.getElementById('spawn2').src = './Resources/Global/Spawns/Sd/2.png?v=1';
-    }
-
-    else {
-        document.getElementById('spawn1').src = './Resources/Global/Spawns/3V3/1.png?v=1';
-        document.getElementById('spawn2').src = './Resources/Global/Spawns/3V3/2.png?v=1';
-    }
-
-    if (gamemode !== 'Wipeout' && gamemode !== 'Knockout' && gamemode !== 'Duels' && gamemode !== 'Showdown' && gamemode !== 'Siege') {
+        document.getElementById('specialTile').value = '4';
+    } else if (gamemode !== 'Wipeout' && gamemode !== 'Knockout' && gamemode !== 'Duels' && gamemode !== 'Showdown' && gamemode !== 'Siege') {
         document.getElementById('specialTile').src = getImage('8');
-    }
-
-    else if (gamemode === 'Snowtel Thieves' || gamemode === 'Siege') document.getElementById('specialTile').src = getImage('8', gamemode === 'Snowtel Thieves');
-
-    else if (gamemode === 'Showdown') {
-        replaceFrom = '8';
-        replaceTo = '4';
-        replaceTiles();
-    }
-
-    else {
-        replaceFrom = '8';
-        replaceTo = '.';
-        replaceTiles();
+    } else if (gamemode === 'Snowtel Thieves' || gamemode === 'Siege') {
+        document.getElementById('specialTile').src = getImage('8', gamemode === 'Snowtel Thieves');
+    } else if (gamemode === 'Showdown') {
+        replaceTiles('8', '4');
+    } else {
+        replaceTiles('8', '.');
         document.getElementById('specialTile').style.display = 'none';
     }
+}
+
+// Helper function to update spawn icons based on gamemode
+function updateSpawnIcons() {
+    const spawn1 = document.getElementById('spawn1');
+    const spawn2 = document.getElementById('spawn2');
+
+    if (gamemode === 'Showdown') {
+        spawn1.src = './Resources/Global/Spawns/Sd/1.png?v=1';
+        spawn2.src = './Resources/Global/Spawns/Sd/2.png?v=1';
+    } else {
+        spawn1.src = './Resources/Global/Spawns/3V3/1.png?v=1';
+        spawn2.src = './Resources/Global/Spawns/3V3/2.png?v=1';
+    }
+}
+
+// Helper function to handle specific gamemode display settings
+function handleSpecificGamemodeSettings() {
+    const siegeDisplay = document.getElementById('siegeDisplay');
+    const boltDisplay = document.getElementById('boltDisplay');
+    const basketDisplay = document.getElementById('basketDisplay');
+    const baskets = document.getElementById('baskets');
 
     if (gamemode === 'Siege') {
-        document.getElementById('siegeDisplay').style.display = 'block';
-        document.getElementById('boltDisplay').style.display = 'inline-block';
-        document.getElementById('basketDisplay').style.display = 'none';
-        document.getElementById('baskets').style.display = 'none';
+        siegeDisplay.style.display = 'block';
+        boltDisplay.style.display = 'inline-block';
+        basketDisplay.style.display = 'none';
+        baskets.style.display = 'none';
+    } else if (gamemode === 'Basket Brawl') {
+        replaceTiles('g', '.');
+        basketDisplay.style.display = 'block';
+        baskets.style.display = 'block';
+        siegeDisplay.style.display = 'none';
+        boltDisplay.style.display = 'none';
+    } else {
+        replaceTiles('g', '.');
+        siegeDisplay.style.display = 'none';
+        boltDisplay.style.display = 'none';
+        basketDisplay.style.display = 'none';
+        baskets.style.display = 'none';
     }
-    else if (gamemode === 'Basket Brawl') {
-        replaceFrom = 'g';
-        replacTo = '.';
-        replaceTiles();
-        document.getElementById('basketDisplay').style.display = 'block';
-        document.getElementById('baskets').style.display = 'block';
-        document.getElementById('siegeDisplay').style.display = 'none';
-        document.getElementById('boltDisplay').style.display = 'none';
-    }
-    else {
-        replaceFrom = 'g';
-        replacTo = '.';
-        replaceTiles();
-        document.getElementById('siegeDisplay').style.display = 'none';
-        document.getElementById('boltDisplay').style.display = 'none';
-        document.getElementById('basketDisplay').style.display = 'none';
-        document.getElementById('baskets').style.display = 'none';
-    }
+}
 
+// Helper function to update the display of the gamemode
+function updateDisplayElements() {
     document.getElementById('modeDisplay').innerText = gamemode;
+}
 
-    if ((gamemode === 'Gem Grab' || gamemode === 'Brawl Ball' || gamemode === 'Basket Brawl' || gamemode === 'Bounty' || gamemode === 'Hold The Trophy' || gamemode === 'Volley Brawl') && rows === 33 && columns === 21) placeTile(16, 10, '8', false, false, false, false, false);
+// Helper function to place special tiles based on the gamemode and grid size
+function placeSpecialTiles() {
+    const positions = {
+        'Gem Grab': [Math.floor(rows / 2), Math.floor(columns / 2), '8'],
+        'Bounty': [Math.floor(rows / 2), Math.floor(columns / 2), '8'],
+        'Brawl Ball': [Math.floor(rows / 2), Math.floor(columns / 2), '8'],
+        'Basket Brawl': [Math.floor(rows / 4), Math.floor(columns / 2), '8'],
+        'Volley Brawl': [Math.floor(rows / 2), Math.floor(columns / 2), '8'],
+        'Hot Zone': [Math.floor(rows / 2), Math.floor(columns / 2), '8'],
+        'Heist': [Math.floor(rows / 8), Math.floor(columns / 2), '8'],
+        'Snowtel Thieves': [Math.floor(rows / 8) + 1, Math.floor(columns / 2), '8'],
+        'Siege': [Math.floor(rows / 8), Math.floor(columns / 2), '8'],
+    };
 
-    else if (gamemode === 'Hot Zone' && count('8') === 0 && rows === 33 && columns === 21) placeTile(16, 10, '8', false, false, false, false, false);
-
-    else if (gamemode === 'Heist' && rows === 33 && columns == 21) {
-        replaceFrom = '8';
-        replaceTo = '.';
-        replaceTiles();
-        placeTile(3, 10, '8', true, false, false, false, false);
+    const tileInfo = positions[gamemode];
+    if (tileInfo && rows === 33 && columns === 21) {
+        replaceTiles('8', '.');
+        replaceTiles('4', '.');
+        placeTile(...tileInfo, true, false, false, false, false);
     }
+}
 
-    else if (gamemode === 'Snowtel Thieves' && rows === 33 && columns == 21) {
-        replaceFrom = '8';
-        replaceTo = '.';
-        replaceTiles();
-        placeTile(5, 10, '8', true, false, false, false, false);
-    }
-
-    else if (gamemode === 'Siege' && rows === 39 && columns == 27) placeTile(3, 13, '8', true, false, false, false, false);
-
-    else if (gamemode === 'Basket Brawl' && rows === 17 && columns === 21) placeTile(8, 10, '8', false, false, false, false, false);
-
-    else if (gamemode === 'Volley Brawl' && rows === 27 && columns === 21) placeTile(13, 10, '8', false, false, false, false, false);
-
-    if (count('1') === 0 && count('2') === 0) {
-        let spawns = [];
-        if (size === '21×33 (Regular)') spawns = regularSpawns;
-        else if (size === '27×39 (Siege)') spawns = siegeSpawns;
-        else if (size === '21×27 (Volley Brawl)') spawns = volleySpawns;
-        else if (size === '21×17 (Basket Brawl)') {
-            basketSpawns.forEach(spawn => {
-                placeTile(spawn, columns - 3, '2', false, false, false, false, false);
-                placeTile(spawn, 2, '1', false, false, false, false, false);
-            });
-        }
-        spawns.forEach(spawn => {
-            placeTile(rows - 1, spawn, '1', false, false, false, false, false);
-            placeTile(0, spawn, '2', false, false, false, false, false);
+// Helper function to set up spawns based on gamemode and size
+function setupSpawns() {
+    let spawns = [];
+    if (size === '21×33 (Regular)' && gamemode === 'Brawl Ball') spawns = [];
+    else if (gamemode === 'Duels' && size === '21×33 (Regular)') spawns = [10];
+    else if (size === '21×33 (Regular)') spawns = regularSpawns;
+    else if (size === '27×39 (Siege)') spawns = siegeSpawns;
+    else if (size === '21×27 (Volley Brawl)') spawns = volleySpawns;
+    else if (size === '21×17 (Basket Brawl)') {
+        basketSpawns.forEach(spawn => {
+            placeTile(spawn, columns - 3, '2', false, false, false, false, false);
+            placeTile(spawn, 2, '1', false, false, false, false, false);
         });
     }
-
-    makeMapFromCode();
+    replaceTiles('1', '.');
+    replaceTiles('2', '.');
+    spawns.forEach(spawn => {
+        placeTile(rows - 1, spawn, '1', false, false, false, false, false);
+        placeTile(0, spawn, '2', false, false, false, false, false);
+    });
 }
+
+
 
 function count(char) {
     c = 0;
@@ -1461,7 +1483,8 @@ function redo() {
 
 function placeTile(row, col, tile = tileSelected, d = mirroring[0], v = mirroring[1], h = mirroring[2], e = eraser, upper = false) {
 	//Proof Checks
-	if (brawlBallTiles.some(bbTile => bbTile[0] === row && bbTile[1] === col)) return;
+    if (mapCode[row][col].char === tile && !e) return;
+	if (gamemode === 'Brawl Ball' && brawlBallTiles.some(bbTile => bbTile[0] === row && bbTile[1] === col)) return;
 	if (tile === '' && !e) return;
 	if (row >= rows || row < 0) return;
 	if (col >= columns || col < 0) return;
@@ -1487,6 +1510,13 @@ function placeTile(row, col, tile = tileSelected, d = mirroring[0], v = mirrorin
 	
 	//Mirroring
 	let tiles = [[row, col]];
+    if (mirroringBlocked && !sent && (tile === '1' || tile === '2')) {
+        sent = true;
+        if (d) placeTile([rows - 1 - row, columns - 1 - col], tile === '1' ? '2' : '1');
+        if (v) placeTile([rows - 1 - row, col], tile === '1' ? '2' : '1');
+        if (h) placeTile([row, columns - 1 - col], tile === '1' ? '2' : '1');
+        sent = false;
+    }
     if (!mirroringBlocked) {
         if (d) tiles.push([rows - 1 - row, columns - 1 - col]);
         if (v) tiles.push([rows - 1 - row, col]);
