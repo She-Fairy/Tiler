@@ -1,0 +1,59 @@
+{
+    "envs": {
+        "0": {
+            "colors": { "dark": "#ED9E6E", "light": "#F9A675" },
+            ".": { "width": 0, "height": 0, "deltax": 0, "deltay": 0, "overlap": [] },
+            "M": { "width": 1, "height": 1.75, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "X": { "width": 1, "height": 1.75, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "Y": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "C": { "width": 1, "height": 1.69, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "F": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "T": { "width": 1, "height": 1.67, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [0, 1], [0, -1], [1, 0]] },
+            "B": { "width": 1, "height": 1.08, "deltax": 0, "deltay": 0, "overlap": [] },
+            "I": { "width": 1, "height": 1.75, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+            "N": { 
+                "main": {"width": 1, "height": 1.61, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+                "ver": {"width": 1, "height": 1.84, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+                "hor": {"width": 1, "height": 1.26, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] }
+            },
+            "W": { "width": 1, "height": 1, "deltax": 0, "deltay": 0, "overlap": [] },
+            "a": {
+                "main": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+                "ver": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+                "hor": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] },
+                "both": { "width": 1, "height": 1.8, "deltax": 0, "deltay": -30, "overlap": [[-1, 0], [1, 0]] }
+            },
+            "1": { "width": 1.7, "height": 1.7, "deltax": -17, "deltay": -17, "overlap": [[-1, 0], [1, 0], [0, 1], [0, -1]] },
+            "2": { "width": 1.7, "height": 1.7, "deltax": -17, "deltay": -17, "overlap": [[-1, 0], [1, 0], [0, 1], [0, -1]] },
+            "8": {
+                "Brawl Ball": { "width": 1.3, "height": 1.469, "deltax": -11, "deltay": -16.5, "overlap": [[-1, 0], [0, 1], [0, -1], [1, 0]] },
+                "Gem Grab": { "width": 2, "height": 2, "deltax": -22.5, "deltay": 22.5, "overlap": [[0, 0], [0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1]] },
+                "Heist": { "width": 2, "height": 2.21, "deltax": -20, "deltay": -55, "overlap": [[-2, -1], [-2, 0], [-2, 1], [-1, 1], [-1, 0], [-1, 1], [0, -1], [0, 1]] },
+                "Bounty": { "width": 1, "height": 1.79, "deltax": -5.5, "deltay": -25, "overlap": [[0, 0], [0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [-1, -1]] },
+                "Hot Zone": { "width": 7, "height": 7, "deltax": -42, "deltay": -42, "overlap": [] },
+                "Snowtel Thieves": { "width": 9, "height": 9, "deltax": -44, "deltay": -44, "overlap": [] },
+                "Basket Brawl": { "width": 1.3, "height": 1.469, "deltax": -11, "deltay": -16.5, "overlap": [[-1, 0], [0, 1], [0, -1], [1, 0]] },
+                "Volley Brawl": { "width": 1.3, "height": 1.469, "deltax": -11, "deltay": -16.5, "overlap": [[-1, 0], [0, 1], [0, -1], [1, 0]] }
+            },
+            "G": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "H": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "L": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "K": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "Z": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "U": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "P": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "O": { "width": 2, "height": 2.24, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "c": { "width": 2, "height": 2, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "d": { "width": 2, "height": 2, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "e": { "width": 2, "height": 2, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "f": { "width": 2, "height": 2, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "z": { "width": 1, "height": 1.11, "deltax": 0, "deltay": 0, "overlap": [] },
+            "w": { "width": 1, "height": 1.11, "deltax": 0, "deltay": 0, "overlap": [] },
+            "y": { "width": 2, "height": 2.26, "deltax": 0, "deltay": 0, "overlap": [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+            "x": { "width": 1.5, "height": 1.65, "deltax": -10, "deltay": -25, "overlap": [[0, 0], [0, 1], [0, -1], [1, 0], [1, 1], [-1, 0], [-1, 1], [-1, -1]] },
+            "v": { "width": 1, "height": 1.5, "deltax": 0, "deltay": -15, "overlap": [[1, 0], [-1, 0]] },
+            "4": { "width": 1, "height": 1.75, "deltax": 0, "deltay": -30, "overlap": [[1, 0, [-1, 0]]] },
+            "J": { "width": 0, "height": 0, "deltax": 0, "deltay": 0, "overlap": [] }
+        }
+    }
+}

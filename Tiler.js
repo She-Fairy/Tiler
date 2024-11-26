@@ -24,6 +24,7 @@ const blocks = ['M', 'X', 'Y', 'C', 'T', 'N', 'W', 'a', 'B', 'I', 'J'];
 const normalMines = [0, 1, 2, 3, 4, 8, 11, 19];
 const cityMines = [5, 6, 10, 12, 16, 23, 38];
 const largeSkulls = [1, 12];
+var sizes;
 
 // Spawn settings
 const regularSpawns = [8, 10, 12];
@@ -79,6 +80,14 @@ var mouseup = true;
 // Tile dimensions
 var rows, columns, tileWidthPercent, tileHeightPercent;
 
+// Elements
+const canvas = document.getElementById('mapCanvas');
+const stx = canvas.getContext('2d');
+
+
+// Canvas Details
+var cellWidth = canvas.width / columns;
+var cellHeight = canvas.height / rows;
 
 const tileSizes = {
     ".": [0, 0, 0, 0],               //Empty
@@ -129,8 +138,10 @@ class Tile {
         this.button = button;
     }
 
-    upper;
-    image;
+    get coordinates() { 
+        return [this.col * cellWidth, this.row * cellHeight];
+    }
+    
 
     duplicate() {
         let tile = new Tile(this.row, this.col, this.button);
@@ -149,7 +160,7 @@ class Node {
 }
 
 
-window.onload = function () {
+window.onload = () => {
     generateMap();
     chooseTile(document.getElementById('M'), 'M');
     selectGamemode('Gem Grab');
@@ -2051,3 +2062,54 @@ function sameVersion(array1, array2) {
 
     return true;
 }
+
+
+function placeTile(row, col, tile) {
+    //Proof Checks
+    if (mapCode[row][col].char === tile && !e) return;
+	if (gamemode === 'Brawl Ball' && brawlBallTiles.some(bbTile => bbTile[0] === row && bbTile[1] === col)) return;
+	if (tile === '' && !e) return;
+	if (row >= rows || row < 0) return;
+	if (col >= columns || col < 0) return;
+    if (tile === '8' && gamemode === 'Showdown') tile = '4';
+}
+
+async function selectTheme() {
+    sizes = await loadSizes(theme).then((s) => {
+        if (s) {
+          console.log('Loaded sizes:', s);
+          return s; // Ensure the sizes object is returned
+        }
+      });
+}
+
+
+async function loadSizes(env) {
+    try {
+      const response = await fetch('sizes.json'); // Path to your JSON file
+      if (!response.ok) {
+        throw new Error(`Failed to load sizes.json: ${response.statusText}`);
+      }
+      const data = await response.json();
+      if (data[env]) {
+        return data[env]; // Return the specific set
+      } else {
+        throw new Error(`Env "${env}" not found in sizes.json`);
+      }
+    } catch (error) {
+      console.error('Error loading sizes:', error);
+      return null;
+    }
+  }
+
+  function cleanTile(row, col) {
+    let color;
+    if ((row * columns + col) % 2 === 0) {
+        color = sizes['colors']['dark'];
+    }
+    else color = sizes['colors']['light'];
+
+    ctx.fillStyle = color;
+    ctx.fillRect(mapCode[row][col].coordinates[0], mapCode[row][col].coordinates[1], cellWidth, cellHeight);
+  }
+
